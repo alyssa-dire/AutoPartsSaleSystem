@@ -32,17 +32,17 @@
 		else 
 			$error[] = "Please enter user name.";
 			
-		if (!empty($_POST['psword']))
-			$psword= ($_POST['psword']);
+		if (!empty($_POST['pword']))
+			$pword= ($_POST['pword']);
 		else 
 			$error[] = "Please enter password.";
 			
-		if (!empty($_POST['psword2']))
-			$psword2= ($_POST['psword2']);
+		if (!empty($_POST['pword2']))
+			$pword2= ($_POST['pword2']);
 		else 
 			$error[] = "Please confirm password.";
 			
-		if ($psword != $psword2)
+		if ($pword != $pword2)
 			$error[] = "Passwords do not match.";
 			
 		if (!empty($_POST['fname']))
@@ -64,7 +64,6 @@
 			$role = $_POST['role'];
 		else 
 			$error[] = "Please enter email.";		
-
 		if(!empty($error)){
 			foreach ($error as $msg){
 				echo $msg;
@@ -73,17 +72,14 @@
 		}
 		else {
 			include("includes/db_connection.php"); 
-
 			// sql to insert data to table
-			$sql = "INSERT INTO users (uname, psword, fname, lname, email, role)
-					VALUES ('$uname', '$psword', '$fname', '$lname', '$email', '$role')";
-
+			$sql = "INSERT INTO Users (uname, pword, fname, lname, email, role)
+					VALUES ('$uname', '$pword', '$fname', '$lname', '$email', '$role')";
 			if ($conn->query($sql) === TRUE) {
     			echo "New record created successfully";
 			} else {
     			echo "Error: " . $sql . "<br>" . $conn->error;
 			}
-
 			$conn->close();	
 		}
 	}
@@ -100,11 +96,11 @@
 		</tr>
 		<tr>
 			<td>Password: </td>
-			<td><input type="password" name="psword"></td>
+			<td><input type="password" name="pword"></td>
 		</tr>
 		<tr>
 			<td>Confirm Password: </td>
-			<td><input type="password" name="psword2"></td>
+			<td><input type="password" name="pword2"></td>
 		</tr>
 		<tr>
 			<td>First Name: </td>
