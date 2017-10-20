@@ -17,8 +17,8 @@
 		else 
 			$error[] = "Please enter user name.";
 			
-		if (!empty($_POST['psword']))
-			$psword= sha1($_POST['psword']);
+		if (!empty($_POST['pword']))
+			$pword= sha1($_POST['pword']);
 		else 
 			$error[] = "Please enter password.";
 		
@@ -33,14 +33,14 @@
 			//connection to database -->phpMyAdmin
 			include("includes/db_connection.php");
 			
-			$q = "SELECT * FROM users WHERE uname = '$uname'";
+			$q = "SELECT * FROM Users WHERE uname = '$uname'";
 			
 			$result = $conn->query($q);
 			if($result->num_rows>0){
 			if($result->num_rows == 1){
 				$row = $result->fetch_assoc();
 				
-				if($row['psword'] == psword){
+				if($row['pword'] == pword){
 					session_start();
 					
 					//set session variables
@@ -92,7 +92,7 @@
   				<p> User name:</p>
   				<p> <input type = "text" name = "uname">
     			<p> Password:</p>
-  				<p> <input type = "password" name = "psword">	
+  				<p> <input type = "password" name = "pword">	
   				<p> <input type = "submit" value = "Login">
   			</form>		
 		
