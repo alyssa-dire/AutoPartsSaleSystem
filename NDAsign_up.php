@@ -73,8 +73,8 @@
 		else {
 			include("includes/db_connection.php"); 
 			// sql to insert data to table
-			$sql = "INSERT INTO Users (uname, pword, fname, lname, email, role)
-					VALUES ('$uname', '$pword', '$fname', '$lname', '$email', '$role')";
+			$sql = "INSERT INTO NDAusers (uname, pword, fname, lname, email, role, status)
+					VALUES ('$uname', '$pword', '$fname', '$lname', '$email', '$role', 'blocked')";
 			if ($conn->query($sql) === TRUE) {
     			echo "New record created successfully";
 			} else {
@@ -96,11 +96,11 @@
 		</tr>
 		<tr>
 			<td>Password: </td>
-			<td><input type="password" name="pword"></td>
+			<td><input type="pword" name="pword"></td>
 		</tr>
 		<tr>
 			<td>Confirm Password: </td>
-			<td><input type="password" name="pword2"></td>
+			<td><input type="pword" name="pword2"></td>
 		</tr>
 		<tr>
 			<td>First Name: </td>
