@@ -7,7 +7,7 @@
 
 <body>
 
-<?php
+<?php	
 	if ($_SERVER['REQUEST_METHOD']=='POST'){		
 		//retrieve form data
 		$error = array();
@@ -21,57 +21,64 @@
 			$pword= sha1($_POST['pword']);
 		else 
 			$error[] = "Please enter password.";
-		
+			
 		if(!empty($error)){
 			foreach ($error as $msg){
 				echo $msg;
 				echo '<br>';
 			}
 		}
-	
 		else {
-			//connection to database -->phpMyAdmin
-			include("includes/db_connection.php");
 			
-			$q = "SELECT * FROM Users WHERE uname = '$uname'";
+			include("includes/db_connection.php"); 
 			
-			$result = $conn->query($q);
-			if($result->num_rows>0){
-			if($result->num_rows == 1){
-				$row = $result->fetch_assoc();
-				
-				if($row['pword'] == pword){
-					session_start();
+			
+			$q = "SELECT * FROM NDAusers WHERE uname = '$uname'";
+			
+			$result = $conn->query($q); //execute select
+			if ($result->num_rows > 0) {
+				if ($result->num_rows == 1){
 					
-					//set session variables
-					$_SESSION['uname'] = $uname;
-					$_SESSION['fname'] = $row['fname'];
-					$_SESSION['role'] = $row['role'];
-				
-					//check the role
-					if ($row['role'] == 'professor'){
-						header('LOCATION: NDAprofessor.php');
+					$row = $result->fetch_assoc();
+	
+					if ($row['pword'] == $pword){
+						if ($row['status'] == 'approved') {
+ 
+						
+							session_start();
+						
+							//set session variables
+							$_SESSION['uname'] = $uname;
+							$_SESSION['fname'] = $row['fname'];			
+							$_SESSION['role'] = $row['role'];				
+						
+							//check the role
+							if($row['role'] == 'student'){
+								header('LOCATION: NDAstudent.php');
+							}
+							else {
+								header('LOCATION: NDAprofessor.php');
+							}
+						}
+						else
+							echo "You have not been approved to use the system yet.";
 					}
 					else {
-						header('LOCATION: NDAstudent.php');
-					}
-					
+						echo "Either username or password does not match.";
+					}		
 				}
 			
-				else{
-					echo "Either username or password does not match.";
+				else {
+					echo "More than one record found with the same user name. DB corrupted.";
 				}
+
+			} 
+			else {
+				echo "User name not found in database.";
 			}
-			else{
-				echo "More than one record found with the same user name.";
-			}
-		}
-		else{
-			echo "User name not found in database.";
-		}
 		}
 	}
-	
+
 ?>
 
 <div id = "container">
@@ -92,7 +99,7 @@
   				<p> User name:</p>
   				<p> <input type = "text" name = "uname">
     			<p> Password:</p>
-  				<p> <input type = "password" name = "pword">	
+  				<p> <input type = "pword" name = "pword">	
   				<p> <input type = "submit" value = "Login">
   			</form>		
 		
