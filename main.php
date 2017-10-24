@@ -22,7 +22,7 @@
   		</div>
 
   		<div class="column content">
-  			<img src = "" width = "800">
+  			<img src = "includes/library.jpg" width = "100%">
   		</div>
 	</div>
 
