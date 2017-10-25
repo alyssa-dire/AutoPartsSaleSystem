@@ -1,34 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Notre Dame Academy</title>
-	<link rel="stylesheet" href="mainstyle.css" type="text/css">
+	<title>SI Auto Parts Sale System</title>
+	<link rel="stylesheet" type="text/css" href="landingPageMAP.css">
+	
 </head>
 
 <body>
 
 <div id = "container">
 	<div class="header">
-		<h1>Notre Dame Academy Class Registration</h1>
+		<h1>SI Auto Parts Sale System</h1>
 	</div>
 
 	<div class="clearfix">
 		<div class="column menu">
     		<ul>
-    			<li><a href="NDAlogin.php">Log in</a></li>
-    			<li><a href="NDAsign_up.php">Sign up</a></li>
-				<li><a href="NDAabout.html">About</a></li>
+    			<li><a href="APlogin.php">Log in</a></li>
+    			<li><a href="APsign_up.php">Sign up</a></li>
+				
     		</ul>
   		</div>
 
   		<div class="column content">
-  			<img src = "includes/library.jpg" width = "100%">
+  			<img src = "includes/parts.jpg" width = "800">
   		</div>
 	</div>
-
+	
 	<div class="footer">
-  		<p>2017 | Staten Island, New York</p>
+  		<p>&copy 2017 | SI Auto Parts Sale System</p>
 	</div>
+
 </div>
 </body>
 </html>
