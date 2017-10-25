@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Notre Dame Academy</title>
-	<link rel="stylesheet" href="mainstyle.css" type="text/css">
+	<title>SI Auto Parts Sale System</title>
+	<link rel="stylesheet" type="text/css" href="landingPageMAP.css">
+
 </head>
 
 <body>
-
 <?php	
 	if ($_SERVER['REQUEST_METHOD']=='POST'){		
 		//retrieve form data
@@ -32,19 +32,20 @@
 			
 			include("includes/db_connection.php"); 
 			
-			
-			$q = "SELECT * FROM NDAusers WHERE uname = '$uname'";
+			$q = "SELECT * FROM SI_users WHERE uname = '$uname'";
 			
 			$result = $conn->query($q); //execute select
 			if ($result->num_rows > 0) {
 				if ($result->num_rows == 1){
-					
+					//one record found. right case.
 					$row = $result->fetch_assoc();
 	
 					if ($row['pword'] == $pword){
 						if ($row['status'] == 'approved') {
  
 						
+							//let user log in
+							//set session variable
 							session_start();
 						
 							//set session variables
@@ -53,11 +54,12 @@
 							$_SESSION['role'] = $row['role'];				
 						
 							//check the role
-							if($row['role'] == 'student'){
-								header('LOCATION: NDAstudent.php');
+							if($row['role'] == 'manager'){
+								header('LOCATION: APmanager.php');
 							}
+						
 							else {
-								header('LOCATION: NDAprofessor.php');
+								header('LOCATION: APstaff.php');
 							}
 						}
 						else
@@ -67,7 +69,6 @@
 						echo "Either username or password does not match.";
 					}		
 				}
-			
 				else {
 					echo "More than one record found with the same user name. DB corrupted.";
 				}
@@ -80,34 +81,34 @@
 	}
 
 ?>
-
-<div id = "container">
+	<div id = "container">
 	<div class="header">
-		<h1>Notre Dame Academy Class Registration</h1>
+		<h1>SI Auto Parts Sale System</h1>
 	</div>
 
 	<div class="clearfix">
-		<div class="column menu">
+	
+	<div class="column menu">
     		<ul>
 				<li><a href="main.php">Home</a></li>
-    			<li><a href="NDAsign_up.php">Sign up</a></li>
-				<li><a href="NDAabout.html">About</a></li>
+    			<li><a href="APsign_up.php">Sign Up</a></li>
     		</ul>
   		</div>
-
-  		<form action = "" method = "post">
+    		
+    		<form action = "" method = "post">
   				<p> User name:</p>
   				<p> <input type = "text" name = "uname">
     			<p> Password:</p>
   				<p> <input type = "pword" name = "pword">	
   				<p> <input type = "submit" value = "Login">
   			</form>		
-		
-	</div>
+  			
 
-	<div class="footer">
-  		<p>2017 | Staten Island, New York</p>
+  		</div>
+		
+		<div class="footer">
+  		<p>&copy 2017 | SI Auto Parts Sale System</p>
 	</div>
-</div>
+  		
 </body>
 </html>
