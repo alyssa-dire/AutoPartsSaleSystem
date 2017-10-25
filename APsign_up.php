@@ -1,28 +1,11 @@
-<!DOCTYPE html>
 <html>
+
 <head>
-	<title>Notre Dame Academy</title>
-	<link rel="stylesheet" href="mainstyle.css" type="text/css">
+	<title>SI Auto Parts Sale System</title>
+	<link rel="stylesheet" type="text/css" href="landingPageMAP.css">
 </head>
-
 <body>
-
-<div id = "container">
-	<div class="header">
-		<h1>Notre Dame Academy Class Registration</h1>
-	</div>
-
-	<div class="clearfix">
-		<div class="column menu">
-    		<ul>
-				<li><a href="main.php">Home</a></li>
-    			<li><a href="NDAlogin.php">Log in</a></li>
-				<li><a href="NDAabout.html">About</a></li>
-    		</ul>
-  		</div>
-	</div>
-	
-	<?php
+<?php
 	if ($_SERVER['REQUEST_METHOD']=='POST'){		
 		//retrieve form data
 		$error = array();
@@ -33,12 +16,12 @@
 			$error[] = "Please enter user name.";
 			
 		if (!empty($_POST['pword']))
-			$pword= ($_POST['pword']);
+			$pword= sha1($_POST['pword']);
 		else 
 			$error[] = "Please enter password.";
 			
 		if (!empty($_POST['pword2']))
-			$pword2= ($_POST['pword2']);
+			$pword2= sha1($_POST['pword2']);
 		else 
 			$error[] = "Please confirm password.";
 			
@@ -63,7 +46,8 @@
 		if (!empty($_POST['role']))
 			$role = $_POST['role'];
 		else 
-			$error[] = "Please enter email.";		
+			$error[] = "Please select a role.";		
+
 		if(!empty($error)){
 			foreach ($error as $msg){
 				echo $msg;
@@ -71,21 +55,39 @@
 			}
 		}
 		else {
+
 			include("includes/db_connection.php"); 
+			
+			
+
 			// sql to insert data to table
-			$sql = "INSERT INTO NDAusers (uname, pword, fname, lname, email, role, status)
+			$sql = "INSERT INTO SI_users (uname, pword, fname, lname, email, role, status)
 					VALUES ('$uname', '$pword', '$fname', '$lname', '$email', '$role', 'blocked')";
+
 			if ($conn->query($sql) === TRUE) {
     			echo "New record created successfully";
 			} else {
     			echo "Error: " . $sql . "<br>" . $conn->error;
 			}
+
 			$conn->close();	
 		}
 	}
 ?>
 
-<h1>Sign Up:</h1>
+<div id = "container">
+	<div class="header">
+		<h1>SI Auto Parts Sale System</h1>
+	</div>
+
+	<div class="clearfix">
+	
+	<div class="column menu">
+    		<ul>
+				<li><a href="main.php">Home</a></li>
+    			<li><a href="APlogin.php">Log in</a></li>
+    		</ul>
+  		</div>
 
 <form action="" method="post">
 	<table>
@@ -119,20 +121,16 @@
 		</tr>
 		<tr>
 			<td>Role: </td>
-			<td><input type="radio" name="role" value = "student">Student<br>
-			 <input type="radio" name="role" value = "professor">Professor<br>
+			<td><input type="radio" name="role" value = "manager">Manager<br>
+			 <input type="radio" name="role" value = "staff">Staff<br></td>
 		</tr>
 	</table>
-	
-	<p><input type="Submit" value = "Submit">
-	
+	<input type="Submit" value="Submit">
 </form>
-	
-	
 
-	<div class="footer">
-  		<p>2017 | Staten Island, New York</p>
+<div class="footer">
+  		<p>&copy 2017 | SI Auto Parts Sale System</p>
 	</div>
-</div>
+
 </body>
 </html>
